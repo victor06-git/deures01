@@ -1,12 +1,8 @@
 package com.exercicis;
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.NoSuchElementException;
-import java.util.Random;
+import java.util.Scanner;
 
 /**
     Introducció
@@ -74,8 +70,20 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testValidarNom"
      */
     public static boolean validarNom(String nom) {
-        // TODO
-        return false;
+        String name = nom.trim().toLowerCase();
+
+        if (name.isEmpty()) {
+            return false;
+        }
+
+        String abc = " abcdefghijklmnopqrstuvwxyzçáéíóúàèìòùäëïöü";
+
+        for (char car : name.toCharArray()) {
+            if (abc.indexOf(car) == -1) {
+                return false;
+            }
+        } 
+        return true;   
     }
     
     /**
