@@ -122,8 +122,16 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testValidarFactors"
      */
     public static boolean validarFactors(String[] factors) {
-        // TODO
-        return false;
+        if (factors.length == 2 && factors[0] != null && factors[1] != null) {
+            
+            if (factors[0].equals("autònom") && factors[1].equals("risc baix")){
+                return false;
+            } 
+            return  (factors[0].equals("autònom") || factors[0].equals("empresa")
+            && (factors[1].equals("risc alt") || factors[1].equals("risc mitjà") || factors[1].equals("risc baix")));
+            
+        }
+        return false; 
     }
 
     /**
@@ -142,7 +150,12 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testValidarDescompte"
      */
     public static boolean validarDescompte(double descompte) {
-        // TODO
+        if (descompte >= 0 && descompte <= 20) {
+            if (descompte == (int) descompte || descompte == (double) descompte) {
+                return true;
+            }
+            return false;
+        } 
         return false;
     }
 
