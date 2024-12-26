@@ -522,7 +522,7 @@ public class Exercici0 {
                             llista.add(client);
                         }
                     }
-                    
+
                 return llista;
     }
 
@@ -536,8 +536,23 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testGeneraClauOperacio"
      */
     public static String generaClauOperacio() {
-        // TODO
-        return "";
+        Random random = new Random();
+        String clau;
+        boolean existeix;
+        do {
+            int num = random.nextInt(900) + 100;
+            clau = "operacio_" + num;
+            existeix = false;
+
+            for (HashMap<String, Object> operacio : operacions) {
+                if (clau.equals(operacio.get("id"))) {
+                    existeix = true;
+                    break;
+                    }
+                }
+        } while (existeix);
+
+        return clau;
     }
 
     /**
@@ -568,8 +583,17 @@ public class Exercici0 {
             String observacions,
             double preu) {
 
-        // TODO
-        return "";
+        String newId = generaClauClient();
+        HashMap<String, Object> novaOperacio = new HashMap<>();
+        novaOperacio.put("id", newId);
+        novaOperacio.put("tipus", tipus);
+        novaOperacio.put("clients", clientsImplicats);
+        novaOperacio.put("data", data);
+        novaOperacio.put("observacions", observacions);
+        novaOperacio.put("preu", preu);
+        
+        operacions.add(novaOperacio);
+        return newId;
     }
 
     /**
@@ -584,9 +608,22 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testModificarOperacio"
      */
     public static String modificarOperacio(String idOperacio, String camp, Object nouValor) {
-        // TODO
-        return "";
-    }
+        if (operacions.isEmpty()) {
+            return "Error: la llista d'operacions està buida.";
+        }
+
+        for (HashMap<String, Object> operacio : operacions) {
+            if (operacio.get("id").equals(idOperacio)) {
+                if (operacio.containsKey(camp)) {
+                    operacio.put(camp, nouValor);
+                    return "OK";
+                    } else {
+                        return "El camp " + camp + " no existeix en l'operació.";
+                }
+            }
+        }
+            return "Operació amb id " + idOperacio + " no existeix.";
+        }
 
     /**
      * Esborra una operació de la llista d'operacions basada en l'identificador de l'operació.
