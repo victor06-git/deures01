@@ -497,9 +497,33 @@ public class Exercici0 {
     public static ArrayList<HashMap<String, HashMap<String, Object>>> llistarClients(
             ArrayList<String> claus,
             HashMap<String, Object> condicions) {
-        //Seguir por aquí
         
-        return null;
+            ArrayList<HashMap<String, HashMap<String, Object>>> llista = new ArrayList<>();
+            for (String camp : clients.keySet()) {
+                if (!claus.contains(camp)) {
+                    continue;
+                }
+
+                HashMap<String, Object> dades = clients.get(camp);
+                boolean compleix = true;
+
+                for (String key : condicions.keySet()) {
+                    Object valor = condicions.get(key);
+
+                    if (!dades.containsKey(key) || !dades.get(key).equals(valor)) {
+                        compleix = false;
+                        break;
+                        }
+                    }
+
+                        if (compleix) {
+                            HashMap<String, HashMap<String, Object>> client = new HashMap<>();
+                            client.put(camp, dades);
+                            llista.add(client);
+                        }
+                    }
+                    
+                return llista;
     }
 
     /**
