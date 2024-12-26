@@ -2,6 +2,7 @@ package com.exercicis;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -363,8 +364,8 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testValidarPreu"
      */
     public static boolean validarPreu(double preu) {
-        // TODO
-        return false;
+        
+        return (preu > 100);
     }
 
     /**
@@ -377,8 +378,16 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testGeneraClauClient"
      */
     public static String generaClauClient() {
-        // TODO
-        return "";
+        Random random = new Random();
+        String clau;
+        
+        do  {
+            int randomNum = 100 + random.nextInt(900);
+            clau = "client_" + randomNum;
+        } while (clients.containsKey(clau));
+
+
+        return clau;
     }
 
     /**
@@ -400,8 +409,18 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testAfegirClient"
      */
     public static String afegirClient(String nom, int edat, ArrayList<String> factors, double descompte) {
-        // TODO
-        return "";
+        String id_client = generaClauClient();
+      
+        HashMap<String, Object> client = new HashMap<>();
+      
+        client.put("nom", nom);
+        client.put("edat", edat);
+        client.put("factors", factors);
+        client.put("descompte", descompte);
+       
+        clients.put(id_client, client);
+       
+        return id_client;
     }
 
     /**
@@ -425,8 +444,18 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testModificarClient"
      */
     public static String modificarClient(String clauClient, String camp, Object nouValor) {
-        // TODO
-        return "";
+        if (!clients.containsKey(clauClient)) {
+            return "Client '" + clauClient + "' no existeix.";
+        }
+        
+        HashMap<String, Object> client = (HashMap<String, Object>) clients.get(clauClient);
+        if (!client.containsKey(camp)) {
+            return "El camp " + camp + " no existeix.";
+        }
+
+        client.put(camp, nouValor);
+
+        return "OK";
     }
 
     /**
