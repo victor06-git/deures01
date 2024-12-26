@@ -266,8 +266,17 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testIsAllDigits"
      */
     public static boolean isAllDigits(String str) {
-        // TODO
-        return false;
+        if (str.isEmpty()) {
+            return false;
+        }
+
+        for (char car : str.toCharArray()) {
+            if (!Character.isDigit(car)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
