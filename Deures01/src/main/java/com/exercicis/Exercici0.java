@@ -301,7 +301,14 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testValidarData"
      */
     public static boolean validarData(String data) {
-        // TODO
+        if (data.length() != 10) {
+            return false;
+        }
+        String[] parts = data.split("-");
+        if (parts.length != 3) {
+            return false;
+        }
+        
         return false;
     }
 
