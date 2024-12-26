@@ -180,8 +180,35 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testValidarTipusOperacio"
      */
     public static boolean validarTipusOperacio(String tipus) {
-        // TODO
-        return false;
+        
+        if (tipus == null){
+            return false;
+        }
+
+        switch (tipus) {
+            case "Declaració d'impostos":
+                return true;
+            case "Gestió laboral":
+                return true;
+            case "Assessoria fiscal":
+                return true;
+            case "Constitució de societat":
+                return true;
+            case "Modificació d'escriptures":
+                return true;
+            case "Testament":
+                return true;
+            case "Gestió d'herències":
+                return true;
+            case "Acta notarial":
+                return true;
+            case "Contracte de compravenda":
+                return true;
+            case "Contracte de lloguer":
+                return true;
+            default:
+                return  false;
+        }
     }
 
     /**
@@ -207,8 +234,27 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testValidarClients"
      */
     public static boolean validarClients(ArrayList<String> clientsLlista, ArrayList<String> clientsGlobals) {
-        // TODO
-        return false;
+        
+        if (clientsLlista == null || clientsGlobals == null){ //Hay contenido en una o ambas listas? 
+            return false;
+        }
+
+        HashMap<String, Integer> countClient = new HashMap<>();
+        
+        for (String client : clientsLlista) {
+            if (countClient.containsKey(client)) {
+                countClient.put(client, countClient.get(client) + 1);
+                } else {
+                    countClient.put(client, 1);
+                }
+        }
+        
+        for (String client : clientsLlista) {
+            if (countClient.get(client) > 1 || !clientsGlobals.contains(client)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
