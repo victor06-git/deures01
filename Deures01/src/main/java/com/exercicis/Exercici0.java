@@ -301,15 +301,49 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testValidarData"
      */
     public static boolean validarData(String data) {
-        if (data.length() != 10) {
-            return false;
-        }
-        String[] parts = data.split("-");
-        if (parts.length != 3) {
+        
+        if (data == null || data.length() != 10) {
             return false;
         }
         
-        return false;
+        if (data.charAt(4) != '-' || data.charAt(7) != '-') {
+            return false;
+        }
+        
+        String anys = data.substring(0, 4);
+        String mesos = data.substring(5, 7);
+        String dies = data.substring(8, 10);
+
+        if (!isAllDigits(anys) || !isAllDigits(mesos) || !isAllDigits(dies)) {
+            return false;
+            }
+        
+
+        int any = Integer.parseInt(anys);
+        int mes = Integer.parseInt(mesos);
+        int dia = Integer.parseInt(dies);
+        
+        if (any < 1000 || any > 9999) {
+            return false;
+            }
+        if (mes < 1 || mes > 12) {
+            return false;
+            }
+        if (dia < 1 || dia > 31) {
+            return false;
+            }
+
+        if (mes == 2 && dia > 29) {
+            return false;
+            }
+
+        if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
+            if (dia > 30) {
+                return false;
+                }
+        }
+
+        return true;
     }
 
     /**
