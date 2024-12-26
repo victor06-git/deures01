@@ -474,8 +474,12 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testEsborrarClient"
      */
     public static String esborrarClient(String clauClient) {
-        // TODO
-        return "";
+        if (!clients.containsKey(clauClient)){
+            return "Client amb clau " + clauClient + " no existeix.";
+        } else {
+            clients.remove(clauClient);
+        }
+        return "OK";
     }
 
     /**
@@ -494,7 +498,7 @@ public class Exercici0 {
             ArrayList<String> claus,
             HashMap<String, Object> condicions) {
         
-        // TODO
+        
         return null;
     }
 
