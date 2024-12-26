@@ -497,7 +497,7 @@ public class Exercici0 {
     public static ArrayList<HashMap<String, HashMap<String, Object>>> llistarClients(
             ArrayList<String> claus,
             HashMap<String, Object> condicions) {
-        
+        //Seguir por aquí
         
         return null;
     }
