@@ -937,7 +937,8 @@ Impostos:  21% (14.41)                     Total: 83.04
      * @test ./runTest.sh "com.exercicis.TestExercici0#testLlistarClientsMenu"
      */
     public static ArrayList<String> getLlistarClientsMenu() {
-        // TODO
+        ArrayList<String> linies = new ArrayList<>();
+        
         return null;
     }
 
