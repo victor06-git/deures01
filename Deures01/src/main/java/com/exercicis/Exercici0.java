@@ -6,8 +6,6 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 
-import javax.crypto.Mac;
-
 /**
     Introducció
     -----------
@@ -873,15 +871,30 @@ Impostos:  21% (14.41)                     Total: 83.04
 
             int descomptePercentage = 10;
             double percentage = (100 - descomptePercentage);
-            double preuDescomptat = sumaPreus * (precentage / 100);
+            double preuDescomptat = sumaPreus * (percentage / 100);
             double impostos = preuDescomptat * 0.21;
             double preuTotal = preuDescomptat + impostos;
 
             ArrayList<Object[]> columnesTotals = new ArrayList<>();
-            columnesTotals.add()
-        } catch (Exception e) {
+            columnesTotals.add(new Object[]{String.format("Suma: %.2f", sumaPreus), "right", 55});
+            linies.add(alineaColumnes(columnesTotals));
+
+            ArrayList<Object[]> columnesDescompte = new ArrayList<>();
+            columnesDescompte.add(new Object[]{String.format("Descompte: %d%%", descomptePercentage), "left", 30});
+            columnesDescompte.add(new Object[]{String.format("Preu: %.2f", preuDescomptat), "right", 25});
+            linies.add(alineaColumnes(columnesDescompte));
+
+            ArrayList<Object[]> columnesImpostos = new ArrayList<>();
+            columnesImpostos.add(new Object[]{String.format("Impostos: 21%% (%.2f)", impostos), "left", 30});
+            columnesImpostos.add(new Object[]{String.format("Total: %.2f", preuTotal), "right", 25});
+            linies.add(alineaColumnes(columnesImpostos));
+
+            return linies;
+
+        } finally {
+            Locale.setDefault(defaultLocale);
+
         }
-        return null;
     }
 
     /**
