@@ -658,8 +658,30 @@ public class Exercici0 {
             ArrayList<String> ids,
             HashMap<String, Object> condicions) {
 
+        ArrayList<HashMap<String, Object>> operacionsFiltrades = new ArrayList<>();
+        for (HashMap<String, Object> operacio : operacions) {
+            if (ids != null && ids.isEmpty() && !ids.contains(operacio.get("id").toString())) {
+                continue;
+            }
+
+            boolean compleixCondicions = true;
+
+            if (condicions != null && !condicions.isEmpty()) {
+                for (String key : condicions.keySet()) {
+                    if ( !operacio.containsKey(key) || !operacio.get(key).equals(condicions.get(key))) {
+                        compleixCondicions = false;
+                        break;
+                    }
+                }
+            }
+
+            //Compleix les condicions? Afegeix a la llista operacionsFiltrades
+            if (compleixCondicions){
+                operacionsFiltrades.add(operacio);
+            }
+        }
         
-        return null;
+        return operacionsFiltrades;
     }
 
     /**
