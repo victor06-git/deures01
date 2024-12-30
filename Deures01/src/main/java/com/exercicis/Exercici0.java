@@ -2,6 +2,7 @@ package com.exercicis;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
@@ -1294,8 +1295,25 @@ Impostos:  21% (14.41)                     Total: 83.04
      * @test ./runTest.sh "com.exercicis.TestExercici0#testEsborrarClientMenu"
      */
     public static ArrayList<String> esborrarClientMenu(Scanner scanner) {
-        
-        return null;
+        ArrayList<String> linies = new ArrayList<>();
+        linies.add("=== Esborrar Client ===");
+
+        System.out.print("Introdueix la clau del client a esborrar (per exemple, 'client_100'): ");
+        String clientKey = scanner.nextLine().trim();
+
+        if (!clients.containsKey(clientKey)) {
+            linies.add("Client amb clau " + clientKey + " no existeix.");
+            return linies;
+        }
+
+        String rst = esborrarClient(clientKey);
+        if(!rst.equals("OK")) {
+            linies.add(rst);
+        } else {
+            linies.add("S'ha esborrat el client " + clientKey + ".");
+        }
+
+        return linies;
     }
 
     /**
@@ -1317,7 +1335,38 @@ Impostos:  21% (14.41)                     Total: 83.04
      * @param scanner L'objecte Scanner per llegir l'entrada de l'usuari.
      */
     public static void gestionaClientsOperacions(Scanner scanner) {
-        // TODO
+        ArrayList<String> menu = getCadenesMenu();
+        ArrayList<String> rst = new ArrayList<>();
+        while ( true ) {
+
+            clearScreen();
+            dibuixarLlista(menu);
+            dibuixarLlista(rst);
+
+            String opcio = obtenirOpcio(scanner);
+
+            switch (opcio.toLowerCase(Locale.ROOT)) {
+                case "sortir":
+                    dibuixarLlista(new ArrayList<>(List.of("Fins aviat!")));
+                    return;
+                case "afegir client":
+                    rst = afegirClientMenu(scanner);
+                    break;
+                case "modificar client":
+                    rst = modificarClientMenu(scanner);
+                    break;
+                case "esborrar client":
+                    rst = esborrarClientMenu(scanner);
+                    break;
+                case "llistar clients":
+                    rst = getLlistarClientsMenu();
+                    break;
+                
+                default:
+                    rst = new ArrayList<>(List.of("Opció no vàlida. Torna a intentar-ho."));
+                
+            }
+        }
     }
 
     /**
