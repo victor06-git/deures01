@@ -938,8 +938,18 @@ Impostos:  21% (14.41)                     Total: 83.04
      */
     public static ArrayList<String> getLlistarClientsMenu() {
         ArrayList<String> linies = new ArrayList<>();
-        
-        return null;
+        linies.add("=== Llistar Clients ===");
+
+        if (clients.isEmpty()){
+            linies.add("No hi ha clients per mostrar.");
+            return linies;
+        }
+
+        for (String key : clients.keySet()) {
+            linies.add(key + ": " + clients.get(key).toString());
+        }
+
+        return linies;
     }
 
     /**
@@ -950,7 +960,9 @@ Impostos:  21% (14.41)                     Total: 83.04
      * @test ./runTest.sh "com.exercicis.TestExercici0#testDibuixarLlista"
      */
     public static void dibuixarLlista(ArrayList<String> llista) {
-        // TODO
+        for (String linia : llista) {
+            System.out.println(linia);
+        }
     }
     
 
@@ -980,8 +992,35 @@ Impostos:  21% (14.41)                     Total: 83.04
      * @test ./runTest.sh "com.exercicis.TestExercici0#testObtenirOpcio"
      */
     public static String obtenirOpcio(Scanner scanner) {
-        // TODO
-        return "";
+        ArrayList<String> menu = getCadenesMenu();
+        while (true) {
+            System.out.print("Selecciona una opció (número o paraula clau): ");
+            String opcio = scanner.nextLine().toLowerCase().trim();
+
+            try {
+                int index = Integer.parseInt(opcio);
+                if (index == 0){
+                    return "sortir";
+                } else if (index > 0 && index < menu.size() - 1){
+                    return menu.get(index).substring(3).trim();
+                }
+            } catch (NumberFormatException e) {
+                //Si no és un número, es continua amb la resta de la funció
+            }
+
+            String opcioNormalized = opcio.replace("ó", "o");
+
+            for (int i = 0; i < menu.size(); i++) {
+                String paraulaKey = menu.get(i).substring(3).trim();
+                String paraulaKeyNormalized = paraulaKey.toLowerCase().replace("ó", "o");
+
+                if ( paraulaKeyNormalized.equals(opcioNormalized)) {
+                    return paraulaKey;
+                }
+            }
+            
+            System.out.println("Opció no vàlida. Torna a intentar-ho.");
+        }
     }
 
     /**
