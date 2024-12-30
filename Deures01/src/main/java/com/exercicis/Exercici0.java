@@ -1000,7 +1000,7 @@ Impostos:  21% (14.41)                     Total: 83.04
             try {
                 int index = Integer.parseInt(opcio);
                 if (index == 0){
-                    return "sortir";
+                    return "Sortir";
                 } else if (index > 0 && index < menu.size() - 1){
                     return menu.get(index).substring(3).trim();
                 }
