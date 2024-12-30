@@ -2,8 +2,11 @@ package com.exercicis;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
+
+import javax.crypto.Mac;
 
 /**
     Introducció
@@ -677,7 +680,7 @@ public class Exercici0 {
 
             //Compleix les condicions? Afegeix a la llista operacionsFiltrades
             if (compleixCondicions){
-                operacionsFiltrades.add(operacio);
+                operacionsFiltrades.add(operacio); //Afegeix l'operació a la llista
             }
         }
 
@@ -693,8 +696,15 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testLlistarOperacionsClient"
      */
     public static ArrayList<HashMap<String, Object>> llistarOperacionsClient(String clauClient) {
-        // TODO
-        return null;
+        ArrayList<HashMap<String, Object>> operacionsClient = new ArrayList<>();
+
+        for (HashMap<String, Object> operacio : operacions) {
+            ArrayList<String> clients = (ArrayList<String>) operacio.get("clients");
+            if (clients != null && clients.contains(clauClient)) {
+                operacionsClient.add(operacio); //Afegeix l'operació
+            }
+        }
+        return operacionsClient;
     }
 
     /**
@@ -722,8 +732,40 @@ public class Exercici0 {
      * @test ./runTest.sh "com.exercicis.TestExercici0#testAlineaColumnes"
      */
     public static String alineaColumnes(ArrayList<Object[]> columnes) {
-        // TODO
-        return "";
+        StringBuilder result = new StringBuilder();
+
+        for (Object[] columna : columnes) {
+            String text = (String) columna[0];  
+            String alineacio = (String) columna[1];
+            int amplada = (int) columna[2];
+            if (text.length() > amplada) {
+                text = text.substring(0, amplada);
+            }
+            
+            int espais = amplada - text.length();
+
+            switch(alineacio){
+                case "left":
+                    result.append(text);
+                    for (int i = 0; i < espais; i++) {
+                        result.append(" ");
+                    }
+                    break;
+                case "right": 
+                    result.append(" ".repeat(espais));
+                    result.append(text);
+                    break;
+                case "center":
+                    int espaisEsquerra = espais / 2;
+                    int espaisDreta = espais - espaisEsquerra;
+                    result.append(" ".repeat(espaisEsquerra));
+                    result.append(text);
+                    result.append(" ".repeat(espaisDreta));
+                    break;
+        }
+    }
+
+        return result.toString();
     }
 
     /**
@@ -777,7 +819,68 @@ Impostos:  21% (14.41)                     Total: 83.04
      * @test ./runTest.sh "com.exercicis.TestExercici0#testTaulaOperacionsClient2"
      */
     public static ArrayList<String> taulaOperacionsClient(String clauClient, String ordre) {
-        // TODO
+        Locale defaultLocale = Locale.getDefault();
+
+        try {
+            Locale.setDefault(Locale.US);
+
+            HashMap<String, Object> client = clients.get(clauClient);
+            if (client == null) {
+                ArrayList<String> error = new ArrayList<>();
+                error.add("Client amb clau " + clauClient + " no existeix.");
+                return error;
+            }
+
+            ArrayList<HashMap<String, Object>> operacionsClient = llistarOperacionsClient(clauClient);
+            operacionsClient.sort((o1, o2) -> {
+                Object val1 = o1.get(ordre);
+                Object val2 = o2.get(ordre);
+                return val1.toString().compareTo(val2.toString());
+            });
+
+            ArrayList<String> linies = new ArrayList<>();
+
+            String nomEdat = client.get("nom") + ", " + client.get("edat");
+            String factors = "[" + String.join(", ", (ArrayList<String>) client.get("factors")) + "]";
+
+            ArrayList<Object[]> columnesCapçalera = new ArrayList<>();
+            columnesCapçalera.add( new Object[]{nomEdat, "left", 25});
+            columnesCapçalera.add( new Object[]{factors, "right", 30});
+            linies.add(alineaColumnes(columnesCapçalera));
+
+            linies.add("-".repeat(55));
+
+            ArrayList<Object[]> columnesTitols = new ArrayList<>();
+            columnesTitols.add(new Object[]{"Tipus", "left", 30});
+            columnesTitols.add(new Object[]{"Data", "left", 10});
+            columnesTitols.add(new Object[]{"Preu", "right", 15});
+            linies.add(alineaColumnes(columnesTitols));
+
+            double sumaPreus = 0.0;
+            for (HashMap<String, Object> operacio : operacionsClient) {
+                ArrayList<Object[]> columnesOperacio = new ArrayList<>();
+                columnesOperacio.add(new Object[]{operacio.get("tipus").toString(), "left", 30});
+                columnesOperacio.add(new Object[]{operacio.get("data").toString(), "left", 10});
+
+                double preu = ((Number) operacio.get("preu")).doubleValue();
+                columnesOperacio.add( new Object[]{String.format("%.2f", preu), "right", 15});
+
+                linies.add(alineaColumnes(columnesOperacio));
+                sumaPreus += preu;
+            }
+
+            linies.add("-".repeat(55));
+
+            int descomptePercentage = 10;
+            double percentage = (100 - descomptePercentage);
+            double preuDescomptat = sumaPreus * (precentage / 100);
+            double impostos = preuDescomptat * 0.21;
+            double preuTotal = preuDescomptat + impostos;
+
+            ArrayList<Object[]> columnesTotals = new ArrayList<>();
+            columnesTotals.add()
+        } catch (Exception e) {
+        }
         return null;
     }
 
