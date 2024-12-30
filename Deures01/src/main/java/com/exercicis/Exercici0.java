@@ -885,7 +885,7 @@ Impostos:  21% (14.41)                     Total: 83.04
             linies.add(alineaColumnes(columnesDescompte));
 
             ArrayList<Object[]> columnesImpostos = new ArrayList<>();
-            columnesImpostos.add(new Object[]{String.format("Impostos: 21%% (%.2f)", impostos), "left", 30});
+            columnesImpostos.add(new Object[]{String.format("Impostos:  21%% (%.2f)", impostos), "left", 30});
             columnesImpostos.add(new Object[]{String.format("Total: %.2f", preuTotal), "right", 25});
             linies.add(alineaColumnes(columnesImpostos));
 
