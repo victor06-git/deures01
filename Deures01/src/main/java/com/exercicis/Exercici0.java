@@ -660,7 +660,7 @@ public class Exercici0 {
 
         ArrayList<HashMap<String, Object>> operacionsFiltrades = new ArrayList<>();
         for (HashMap<String, Object> operacio : operacions) {
-            if (ids != null && ids.isEmpty() && !ids.contains(operacio.get("id").toString())) {
+            if (ids != null && !ids.isEmpty() && !ids.contains(operacio.get("id").toString())) {
                 continue;
             }
 
@@ -680,7 +680,7 @@ public class Exercici0 {
                 operacionsFiltrades.add(operacio);
             }
         }
-        
+
         return operacionsFiltrades;
     }
 
