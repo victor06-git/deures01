@@ -1035,8 +1035,15 @@ Impostos:  21% (14.41)                     Total: 83.04
      * @test ./runTest.sh "com.exercicis.TestExercici0#testLlegirNom"
      */
     public static String llegirNom(Scanner scanner) {
-        // TODO
-        return "";
+        System.out.print("Introdueix el nom del client: ");
+        String nom = scanner.nextLine().trim();
+
+        while (!validarNom(nom)){
+            System.out.println("Nom no vàlid. Només s'accepten lletres i espais.");
+            System.out.print("Introdueix el nom del client: ");
+            nom = scanner.nextLine().trim();
+        }
+        return nom;
     }
 
     /**
