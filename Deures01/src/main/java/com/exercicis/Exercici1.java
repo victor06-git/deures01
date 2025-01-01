@@ -82,8 +82,19 @@ public class Exercici1 {
      * @test ./runTest.sh "com.exercicis.TestExercici1#testPrintBoardWithLargeNumbers"
      */
     public static void printBoard() {
-        ArrayList<String> lines = new ArrayList<>();
-        
+        System.out.println("+----+----+----+----+");
+        for (int[] row : board) {
+            for (int num : row) {
+                if (num == 0) {
+                    System.out.printf("|    ", num == 0 ? "" : num );
+                } else {
+                        System.out.printf("|%4d", num == 0 ? "" : num);
+                    }
+                }
+
+        System.out.println("|");
+        System.out.println("+----+----+----+----+");
+        }
     }
 
     /**
