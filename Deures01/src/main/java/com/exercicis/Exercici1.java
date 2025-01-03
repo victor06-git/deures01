@@ -1,5 +1,4 @@
 package com.exercicis;
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -109,7 +108,13 @@ public class Exercici1 {
      * @test ./runTest.sh "com.exercicis.TestExercici1#testSpawnDoNotOverwriteExisting"
      */
     public static void spawnTile() {
-        // TODO
+        int x, y;
+        do { 
+            x = random.nextInt(SIZE);
+            y = random.nextInt(SIZE);
+        } while (board[x][y] != 0);
+
+        board[x][y] = random.nextInt(10) == 0 ? 4 : 2;
     }
 
     /**
