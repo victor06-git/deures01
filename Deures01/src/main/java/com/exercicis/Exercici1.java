@@ -43,7 +43,7 @@ import java.util.Scanner;
 
 public class Exercici1 {
 
-    public static final int SIZE = 4;
+    public static final int SIZE = 4; //valor que no canvia
     public static int[][] board = new int[SIZE][SIZE];
     public static final Random random = new Random();
 
@@ -153,7 +153,38 @@ public class Exercici1 {
      */
     public static void moveLeft() {
         //Move left
+        for (int i=0; i<SIZE; i++) {
+            int[] row = new int[SIZE];
+            int j = 0;
+
+            for (int col=0; col<SIZE; col++) {
+                if (board[i][col] != 0) {
+                    row[j] = board[i][col];
+                    j++;
+                }
+            }
+
+            for (int k=0; k < SIZE -1; k++) {
+                if (row[k] != 0 && row[k] == row[k+1]) {
+                    row[k] = row[k] + row[k];
+                    row[k+1] = 0;
+                }
+            }
+
+            int[] finali = new int[SIZE];
+            int l = 0;
+            for (int y = 0; y < SIZE; y++) {
+                if (row[y] != 0) {
+                    finali[l] = row[y];
+                    l++;
+                }
+            }
+
+            board[i] = finali;
+        }
     }
+
+
 
     /**
      * Mou totes les fitxes cap a la dreta:
