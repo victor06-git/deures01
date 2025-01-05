@@ -154,33 +154,33 @@ public class Exercici1 {
     public static void moveLeft() {
         //Move left
         for (int i=0; i<SIZE; i++) {
-            int[] row = new int[SIZE];
-            int j = 0;
+            int[] row = new int[SIZE]; //Es crea un nou array per cada fila
+            int j = 0; //Indica la posició actual a la fila
 
-            for (int col=0; col<SIZE; col++) {
-                if (board[i][col] != 0) {
-                    row[j] = board[i][col];
-                    j++;
+            for (int col=0; col<SIZE; col++) { //Bucle que recorre totes les caselles
+                if (board[i][col] != 0) { //S'identifica quines tenen un número
+                    row[j] = board[i][col]; //S'afegeixen a l'array row
+                    j++; //Suma 1 a j per a poder afegir el següent número
                 }
             }
 
-            for (int k=0; k < SIZE -1; k++) {
-                if (row[k] != 0 && row[k] == row[k+1]) {
-                    row[k] = row[k] + row[k];
-                    row[k+1] = 0;
+            for (int k=0; k < SIZE -1; k++) { //Bucle 
+                if (row[k] != 0 && row[k] == row[k+1]) { // Si dos nombres són iguals
+                    row[k] = row[k] + row[k]; //Es sumen
+                    row[k+1] = 0; //El següent número es posa a 0
                 }
             }
 
             int[] finali = new int[SIZE];
             int l = 0;
-            for (int y = 0; y < SIZE; y++) {
-                if (row[y] != 0) {
-                    finali[l] = row[y];
-                    l++;
+            for (int y = 0; y < SIZE; y++) { //Bucle
+                if (row[y] != 0) { //Si el número no és 0
+                    finali[l] = row[y]; //S'afegeix a l'array finali
+                    l++; //Suma 1 a l per a poder afegir el següent número
                 }
             }
 
-            board[i] = finali;
+            board[i] = finali; // S'afegeix a la matriu board
         }
     }
 
@@ -221,7 +221,36 @@ public class Exercici1 {
      * @test ./runTest.sh "com.exercicis.TestExercici1#testMoveRightFullColumnWithoutMerge"
      */
     public static void moveRight() {
-        // TODO
+        for (int row = 0; row < SIZE; row++) {
+
+            int[] newRow  = new int[SIZE];
+            int newInd = SIZE - 1;
+            
+            for (int col = newInd; col >= 0; col--) {
+                if (board[row][col] != 0) {
+                    newRow[newInd] = board[row][col];
+                    newInd--;
+                }
+            }
+
+            for (int i = SIZE - 1; i > 0; i--) {
+                if (newRow[i] != 0 && newRow[i] == newRow[i - 1]) {
+                    newRow[i] = newRow[i] + newRow[i];
+                    newRow[i - 1] = 0;
+                }
+            }
+
+            int[] finalRow = new int[SIZE];
+            int finalInd = SIZE - 1;
+            for (int i = SIZE - 1; i >= 0; i--) {
+                if (newRow[i] != 0) {
+                    finalRow[finalInd] = newRow[i];
+                    finalInd--;
+                }
+            }
+
+            board[row] = finalRow;
+        }
     }
 
     /**
