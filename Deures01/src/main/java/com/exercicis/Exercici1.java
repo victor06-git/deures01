@@ -288,19 +288,35 @@ public class Exercici1 {
      * @test ./runTest.sh "com.exercicis.TestExercici1#testMoveUpFullColumnWithoutMerge"
      */
     public static void moveUp() {
-        for (int row = 0; row < SIZE; row++) {
-            int[] newRow = new int[SIZE];
-            int finalInd = 0;
+        for (int col = 0; col < SIZE; col++) {
+            int[] newCol = new int[SIZE];
+            int newInd = 0;
 
-            for (int col = 0; col < SIZE; col++) {
-                if (board[row][col] != 0) {
-                    newRow[finalInd] = board[row][col];
-                    finalInd++;
+            for (int row = 0; row < SIZE; row++) {
+                if (board[col][row] != 0) {
+                    newCol[newInd] = board[col][row];
+                    newInd++;
                 }
             }    
 
-            for (int i = 0; i < finalInd; i++) {
-    
+            for (int i = 0; i < SIZE; i++) {
+                if (newCol[i] != 0 && newCol[i] == newCol[i + 1]) {
+                    newCol[i] = newCol[i] + newCol[i];
+                    newCol[i + 1] = 0;
+                }    
+            }
+            int[] finalCol = new int[SIZE];
+            int finalInd = 0;
+            for (int i = 0; i < SIZE; i++) {
+                if (newCol[i] != 0) {
+                    finalCol[finalInd] = newCol[i];
+                    finalInd++;
+                }
+            }
+
+            for (int row = 0; row < SIZE; row++) {
+                board[col][row] = finalCol[row];
+            }
         }
     }
     /**
