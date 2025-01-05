@@ -288,9 +288,21 @@ public class Exercici1 {
      * @test ./runTest.sh "com.exercicis.TestExercici1#testMoveUpFullColumnWithoutMerge"
      */
     public static void moveUp() {
-        // TODO
-    }
+        for (int row = 0; row < SIZE; row++) {
+            int[] newRow = new int[SIZE];
+            int finalInd = 0;
 
+            for (int col = 0; col < SIZE; col++) {
+                if (board[row][col] != 0) {
+                    newRow[finalInd] = board[row][col];
+                    finalInd++;
+                }
+            }    
+
+            for (int i = 0; i < finalInd; i++) {
+    
+        }
+    }
     /**
      * Mou totes les fitxes cap avall:
      * 1. Mou tots els números (!= 0) cap avall eliminant els espais buits
