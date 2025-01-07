@@ -411,8 +411,15 @@ public class Exercici1 {
             }
         }
 
-        
-        return "continue";
+        for (int row = 0; row < SIZE; row++) {
+            for (int col = 0; col < SIZE; col++) {
+                if (board[row][col] == 0) return "continue";
+
+                if (row > 0 && board[row][col] == board[row - 1][col]) return "continue";
+                if (col > 0 && board[row][col] == board[row][col - 1]) return "continue";
+            }
+        }
+        return "lost";
     }
 
     /**
@@ -443,7 +450,54 @@ public class Exercici1 {
      * @test ./runTest.sh "com.exercicis.TestExercici1#testPlayMixedCaseCommands"
      */
     public static void play(Scanner scanner) {
-        // TODO
+        String msg = "";
+
+        spawnTile();
+        while (true) {
+            spawnTile();
+            clearScreen();
+            printBoard();
+            if (msg.compareTo("") != -1) {
+                System.out.println(msg);
+            }
+
+            String gameFinished = isGameFinished();
+            if (gameFinished.equals("win")) {
+                System.out.println("You win, congrats!");
+                break;
+            }
+            if (gameFinished.equals("lost")) {
+                System.out.println("Game Over, you are a loser!");
+                break;
+            }
+
+            System.out.println("Enter move (left, up, right, down, exit): ");
+            String move = scanner.nextLine().toLowerCase();
+
+            switch (move) {
+                case "l":
+                case "left":
+                    moveLeft();
+                    break;
+                case "r":
+                case "right":
+                    moveRight();
+                    break;
+                case "u":
+                case "up":
+                    moveUp();
+                    break;
+                case "d":
+                case "down":
+                    moveDown();
+                    break;
+                case "exit":
+                    System.out.println("Exit game ...");
+                    return;
+                default:
+                    msg = "Invalid move!";
+            }
+        }
     }
 
     /**
