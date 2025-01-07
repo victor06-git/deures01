@@ -85,14 +85,14 @@ public class Exercici1 {
         for (int[] row : board) {
             for (int num : row) {
                 if (num == 0) {
-                    System.out.printf("|    ", num == 0 ? "" : num );
+                    System.out.printf("|    ");
                 } else {
-                        System.out.printf("|%4d", num == 0 ? "" : num);
-                    }
+                    System.out.printf("|%4d", num);
                 }
+            }
 
-        System.out.println("|");
-        System.out.println("+----+----+----+----+");
+            System.out.println("|");
+            System.out.println("+----+----+----+----+");
         }
     }
 
@@ -299,7 +299,7 @@ public class Exercici1 {
                 }
             }    
 
-            for (int i = 0; i < SIZE; i++) {
+            for (int i = 0; i < SIZE - 1; i++) {
                 if (newCol[i] != 0 && newCol[i] == newCol[i + 1]) {
                     newCol[i] = newCol[i] + newCol[i];
                     newCol[i + 1] = 0;
